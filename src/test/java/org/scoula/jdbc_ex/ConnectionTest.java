@@ -25,17 +25,19 @@ class ConnectionTest {
         String url = "jdbc:mysql://127.0.0.1:3306/jdbc_ex";
         String id = "scoula";
         String password = "wlgjs0417";
+
+        // 3. 데이터베이스 연결 수립
         Connection con = DriverManager.getConnection(url, id, password);
         System.out.println("2. db연결 성공>> " + con);
 
-        // 자원해제
+        // 4. 자원해제 (연결종료, connection 닫기 == 통로 닫기 )
         con.close();
 
     }
 
     @Test
     public void testConnection2 () {
-        Connection con = JDBCUtil.getConnection();
+        Connection con = JDBCUtil.getConnection(); // 클래스명.메소드명 ==> static 메소드 사용할 때 (객체 생성 없이)
         try {
             JDBCUtil.close();
         } catch (SQLException e) {
