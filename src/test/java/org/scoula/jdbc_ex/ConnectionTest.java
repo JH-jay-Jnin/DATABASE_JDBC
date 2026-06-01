@@ -28,7 +28,7 @@ class ConnectionTest {
 
         // 3. 데이터베이스 연결 수립
         Connection con = DriverManager.getConnection(url, id, password);
-        System.out.println("2. db연결 성공>> " + con);
+        System.out.println("2. db연결 성공 >> " + con);
 
         // 4. 자원해제 (연결종료, connection 닫기 == 통로 닫기 )
         con.close();
