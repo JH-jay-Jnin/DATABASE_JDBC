@@ -1,5 +1,6 @@
 package org.scoula.jdbc_ex;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.scoula.jdbc_ex.common.JDBCUtil;
 
@@ -14,6 +15,7 @@ class ConnectionTest {
      // db연결 테스트 메스드 정의해주면 된다!
     // 메서드 단위로 기능을 테스트해볼 수 있음. (JUnit 라이브러리 사용함)
     @Test
+    @DisplayName("jdbc 1-2단계 테스트") // 이 부분을 써놓으면 나중에 인스턴스 후에에 내가 무엇을 한건지 출력해서 확인하는데 용이하다
     public void testConnection() throws ClassNotFoundException, SQLException {
         // JDBC 단계별 테스트 해보자.!!!
         // 1. jdbc드라이버 세팅(로딩), jdbc connector
@@ -22,7 +24,8 @@ class ConnectionTest {
 
         // 2. db 연결해보기 ==> DriverManager가 DB에 연결하는 것!
         // db 연결시 필요한 데이터 3가지 : url(ip + port + db명), username, pw
-        String url = "jdbc:mysql://127.0.0.1:3306/jdbc_ex";
+
+        String url = "jdbc:mysql://127.0.0.1:3306/jdbc_ex";   // String id = JOptionPane.showInputDialog ("id 입력")
         String id = "scoula";
         String password = "wlgjs0417";
 

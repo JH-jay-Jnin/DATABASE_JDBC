@@ -23,9 +23,9 @@ public class JDBCUtil {
     //static인 경우 생성자를 호출하지 않아 초기화해줄 수 없음. 이때 static블록을 넣어 초기화.
 
     static { // static이 생성자 블록과 같은 역할을 해주는 것이다! ==> load를 try/catch로 잡아줘야한다 )
-        Properties properties = new Properties();
+        Properties properties = new Properties(); // application.properties를 사용하기 위해 new로 선언해주고 아래 코드에서 읽어와서 사용
         try {
-            properties.load(JDBCUtil.class.getResourceAsStream("/application.properties"));
+            properties.load(JDBCUtil.class.getResourceAsStream("/application.properties")); // 아래 4개는 app.properties에서 K:V 형태로 저장!
             String driver = properties.getProperty("driver");
             String url = properties.getProperty("url");
             String id = properties.getProperty("id");
