@@ -3,8 +3,10 @@ package org.edu.member.dao;
 import org.edu.member.common.JDBCUtil;
 import org.edu.member.vo.Member;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MemberDaoImpl implements MemberDao {
@@ -69,6 +71,48 @@ public class MemberDaoImpl implements MemberDao {
             return result;
         }
     }
+
+    // 회원 정보 삭제
+    @Override
+    public int delete(String id) throws SQLException {
+        String sql = "DELETE FROM members WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, id);
+            int result = pstmt.executeUpdate();
+            if (result == 1) conn.commit();
+            return result;
+        }
+    }
+
+    // 회원 번호 일치
+    @Override
+    public Member getDeptName(int memberNo) throws SQLException {
+        Member mem = null;
+
+        // 여러 줄로 작성하는 경우 띄어쓰기 주의! ( 왠만하면 \n 그냥 쓰도록! )
+        String sql = "SELECT no, name, m.dept_no, dept_name\n" +
+                "FROM members m\n" +
+                "LEFT JOIN departments d ON m.dept_no = d.dept_no\n" +
+                "WHERE no = ?\n";
+
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, memberNo);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    // no == pk라서, 조회 성공 시 1행만 존재한다.
+
+                    mem = new Member();
+                    mem.setMemberNo(rs.getInt("NO"));
+                    mem.setMemberName(rs.getString("NAME"));
+                    mem.setDeptNo(rs.getInt("DEPT_NO"));
+                    mem.setDeptName(rs.getString("DEPT_NAME"));
+
+                }
+
+            }
+
+        }
+        return mem; // 존재하면 mem을 반환, 없으면 초기 기본 값인 Null을 반환한다.
+    }
 }
-
-

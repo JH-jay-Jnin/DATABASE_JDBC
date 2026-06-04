@@ -13,4 +13,10 @@ public interface MemberDao {
 
     // 회원 수정
     int modify(Member modify) throws SQLException;
+
+    // 회원 삭제
+    int delete(String id) throws SQLException;
+
+    // 회원 부서명 조회
+    Member getDeptName(int memberNo) throws SQLException;
 }
